@@ -4,15 +4,6 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer 
 
-# #トークンを発行するためのクラス
-# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-
-#     @classmethod
-#     def get_token(cls, user):
-#         token = super(MyTokenObtainPairSerializer, cls).get_token(user)
-#         return token
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -21,9 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True, 'required': True}}
 
     def create(self, validated_data):
-        # passwordのハッシュ化
         user = User.objects.create_user(**validated_data)
-        # Token.objects.create(user=user)
         return user
 
 

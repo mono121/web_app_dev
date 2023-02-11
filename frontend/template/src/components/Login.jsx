@@ -18,12 +18,10 @@ const Login = (props) => {
           },
         )
         .then(function (response) {
-          console.log(response.data.access)
           setCookie('accesstoken', response.data.access, { path: '/' }, { httpOnly: true });
           setCookie('refreshtoken', response.data.refresh, { path: '/' }, { httpOnly: true });
         })
         .catch(err => {
-            console.log("miss");
             alert("usernameかPasswordが違います");
         });
       };
@@ -31,14 +29,14 @@ const Login = (props) => {
     const [tasks, setTasks] = useState([])
 
     const getTasks = () =>{
-        axios.get(`${apiURL}tasks/`, {
-          headers: {
-            Authorization : `JWT ${cookies.accesstoken}`,
-          }
-        })
-        .then(res => {setTasks(res.data)})
-        console.log(`JWT ${cookies.accesstoken}`)
-    }
+      axios.get(`${apiURL}tasks/`, {
+        headers: {
+          Authorization : `JWT ${cookies.accesstoken}`,
+        }
+      })
+      .then(res => {setTasks(res.data)})
+      console.log(`JWT ${cookies.accesstoken}`)
+  }
 
     return (
         <div className="top-wrapper">
@@ -57,7 +55,7 @@ const Login = (props) => {
             <div>
                 <ul>
                 {
-                  tasks.map(task => <li key={task.id}> ID : {task.id}, Title : {task.title}</li>)
+                    tasks.map(task => <li key={task.id}> ID : {task.id}, Title : {task.title}</li>)
                 }
                 </ul>
             </div>
